@@ -23,8 +23,8 @@ import { useUserContext } from '@/context/AuthContext'
 const SigninForm = () => {
   const { toast } = useToast()
   const navigate = useNavigate()
-  const { checkAuthUser, isPending: isUserLoading } = useUserContext()
-  const { mutateAsync: signInAccount, isPending } = useSignInAccount()
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext()
+  const { mutateAsync: signInAccount, isLoading } = useSignInAccount()
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -47,7 +47,7 @@ const SigninForm = () => {
     if (isLoggedIn) {
       form.reset()
 
-      navigate('/home')
+      navigate('/')
     } else {
       toast({ title: 'Login failed. Please try again.' })
 
@@ -95,7 +95,7 @@ const SigninForm = () => {
           />
 
           <Button type='submit' className='shad-button_primary'>
-            {isPending || isUserLoading ? (
+            {isLoading || isUserLoading ? (
               <div className='flex-center gap-2'>
                 <Loader /> Loading...
               </div>
@@ -110,7 +110,7 @@ const SigninForm = () => {
               to='/home'
               className='text-primary-500 text-small-semibold ml-1'
             >
-              Prodcuts
+              Products
             </Link>
           </p>
         </form>
