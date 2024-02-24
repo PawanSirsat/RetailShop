@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <div className='flex flex-1'>
-      <div className='home-container '>
+      <div className='home-container'>
         <div className='home-posts items-center justify-center'>
           <h2 className='h3-bold md:h2-bold text-center w-full'>
             Product List
