@@ -11,11 +11,11 @@
   }
 
   body {
-    background: #485563;
+    background: #0e0e0e;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #29323c, #485563);
+    background: -webkit-linear-gradient(to top, #0d0d0d, #131414);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #29323c, #485563);
+
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
     min-height: 80vh;
@@ -153,7 +153,7 @@
 
   .home-container2 {
     @apply flex flex-col flex-1 items-center gap-4 overflow-scroll py-4 px-3 md:px-8 lg:p-14 custom-scrollbar;
-    height: 80vh;
+
   }
 
   .home-posts {
@@ -206,7 +206,7 @@
 
   /* Bottom bar */
   .bottom-bar {
-    @apply z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-gray-800 px-5 py-4 md:hidden;
+    @apply z-50 flex-between w-full sticky bottom-0 rounded-t-[20px] bg-black px-5 py-4 md:hidden;
   }
 
   /* File uploader */
@@ -306,11 +306,7 @@
 
   /* Button */
   .shad-button_primary {
-    @apply text-light-1 flex gap-2 !important;
-  }
-
-  .shad-button_primary:hover {
-    background-color: #1CC29F;
+    @apply bg-yellow-600 hover:bg-yellow-500 text-light-1 flex gap-2 !important;
   }
 
   .shad-button_dark_4 {
