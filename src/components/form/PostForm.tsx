@@ -18,7 +18,6 @@ import {
 import { Input } from '../ui/input'
 import FileUploader from '../shared/FileUploader'
 import { Loader } from 'lucide-react'
-import { Textarea } from '../ui/textarea'
 
 type PostFormProps = {
   post?: Models.Document

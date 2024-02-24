@@ -11,7 +11,6 @@ import {
   updatePost,
 } from '@/lib/appwrite/api'
 import { INewPost, INewUser, IUpdatePost } from '@/types'
-import { ProductValidation } from '../validation'
 import { QUERY_KEYS } from './queryKeys'
 
 // ============================================================
