@@ -8,6 +8,8 @@ type PostCardProps = {
 }
 
 const ProductCard = ({ post }: PostCardProps) => {
+  console.log(post)
+
   const isAuthenticated = useUserContext()
   return (
     <div className='post-card'>
