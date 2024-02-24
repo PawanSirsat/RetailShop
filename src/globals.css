@@ -10,6 +10,17 @@
   }
 
   body {
+    background: #485563;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #29323c, #485563);
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    min-height: 80vh;
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
     @apply bg-dark-1 text-white min-h-screen font-inter;
   }
 }
