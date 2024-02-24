@@ -9,6 +9,7 @@ import SignupForm from './_auth/forms/SignupForm'
 import AdminHome from './_root/pages/AdminHome'
 import AddProduct from './_root/pages/AddProduct'
 import { Toaster } from './components/ui/toaster'
+import EditPost from './_root/pages/EditPost'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route index element={<AdminHome />} />
           <Route path='/dashboard' element={<DashBoard />} />
           <Route path='/add' element={<AddProduct />} />
+          <Route path='/update-post/:id' element={<EditPost />} />
         </Route>
       </Routes>
       <Toaster />

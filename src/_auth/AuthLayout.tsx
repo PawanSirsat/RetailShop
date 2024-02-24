@@ -1,19 +1,20 @@
 import PublicTopbar from '@/components/shared/PublicTopbar'
-import Topbar from '@/components/shared/Topbar'
+import { useUserContext } from '@/context/AuthContext'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const AuthLayout = () => {
-  const isAuthenticated = false
+  const isAuthenticated = useUserContext()
+  console.log(isAuthenticated)
 
   return (
     <div className='w-full md:flex'>
       <PublicTopbar />
 
-      {isAuthenticated ? (
+      {isAuthenticated.isAuthenticated ? (
         <Navigate to='/' />
       ) : (
         <>
-          <section className='flex flex-1 justify-center items-center flex-col py-10'>
+          <section className='flex items-center justify-center flex-1'>
             <Outlet />
           </section>
         </>

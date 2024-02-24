@@ -1,13 +1,14 @@
+import { useUserContext } from '@/context/AuthContext'
 import { multiFormatDateString } from '@/lib/utils'
 import { Models } from 'appwrite'
+import { Link } from 'react-router-dom'
 
 type PostCardProps = {
   post: Models.Document
 }
 
 const ProductCard = ({ post }: PostCardProps) => {
-  console.log(post)
-
+  const isAuthenticated = useUserContext()
   return (
     <div className='post-card'>
       <div className='flex items-center gap-3'>
@@ -30,6 +31,19 @@ const ProductCard = ({ post }: PostCardProps) => {
             <p className='subtle-semibold lg:small-regular text-light-3'>
               {multiFormatDateString(post.updatedDate)}
             </p>
+            {isAuthenticated.isAuthenticated ? (
+              <Link to={`/update-post/${post.$id}`}>
+                <img
+                  src={'/assets/icons/edit.png'}
+                  alt='edit'
+                  width={15}
+                  height={15}
+                  style={{ filter: 'invert(100%)' }}
+                />
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

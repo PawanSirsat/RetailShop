@@ -295,3 +295,20 @@ export async function getRecentProduct() {
     console.log(error)
   }
 }
+
+// ============================== GET POST BY ID
+export async function getProductById(postId?: string) {
+  if (!postId) throw Error
+
+  try {
+    const post = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.productsCollectionId,
+      postId
+    )
+    if (!post) throw Error
+    return post
+  } catch (error) {
+    console.log(error)
+  }
+}

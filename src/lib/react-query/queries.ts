@@ -4,6 +4,7 @@ import {
   createPost,
   createUserAccount,
   deletePost,
+  getProductById,
   getRecentProduct,
   signInAccount,
   signOutAccount,
@@ -79,5 +80,13 @@ export const useGetRecentProducts = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
     queryFn: getRecentProduct,
+  })
+}
+
+export const useGetProductById = (postId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+    queryFn: () => getProductById(postId),
+    enabled: !!postId,
   })
 }

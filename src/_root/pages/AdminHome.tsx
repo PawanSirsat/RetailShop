@@ -30,11 +30,18 @@ const AdminHome = () => {
     post.productName.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  // Sort filteredPosts by updatedDate in descending order
+  const sortedPosts = filteredPosts?.sort((a, b) => {
+    return new Date(b.updatedDate).getTime() - new Date(a.updatedDate).getTime()
+  })
+
   return (
     <div className='flex flex-1'>
       <div className='home-container'>
         <div className='home-posts'>
-          <h2 className='h3-bold md:h2-bold text-left w-full'>Product List</h2>
+          <h2 className='h3-bold md:h2-bold text-center w-full'>
+            Product List
+          </h2>
 
           {/* Search input */}
           <input
@@ -49,7 +56,7 @@ const AdminHome = () => {
             <Loader />
           ) : (
             <ul className='flex flex-col flex-1 gap-9 w-full'>
-              {filteredPosts?.map((post: Models.Document) => (
+              {sortedPosts?.map((post: Models.Document) => (
                 <li key={post.$id} className='flex justify-center w-full'>
                   <ProductCard post={post} />
                 </li>
