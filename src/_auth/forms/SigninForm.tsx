@@ -50,7 +50,6 @@ const SigninForm = () => {
       navigate('/')
     } else {
       toast({ title: 'Login failed. Please try again.' })
-
       return
     }
   }
@@ -108,7 +107,7 @@ const SigninForm = () => {
             View Updated Prices
             <Link
               to='/home'
-              className='text-primary-500 text-small-semibold ml-1'
+              className='text-yellow-500 text-small-semibold ml-1'
             >
               Products
             </Link>

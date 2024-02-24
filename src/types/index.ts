@@ -14,21 +14,18 @@ export type IUpdateUser = {
 }
 
 export type INewPost = {
-  userId: string
-  caption: string
+  productName: string
+  productPrice: string
   file: File[]
-  location?: string
-  tags?: string
 }
 
 export type IUpdatePost = {
   postId: string
-  caption: string
   imageId: string
   imageUrl: URL
+  productName: string
+  productPrice: string
   file: File[]
-  location?: string
-  tags?: string
 }
 
 export type IUser = {
