@@ -16,7 +16,7 @@ const EditPost = () => {
 
   return (
     <div className='flex flex-1'>
-      <div className='common-container mb-40'>
+      <div className='home-container'>
         <div className='max-w-5xl flex items-center justify-center gap-3'>
           <img
             src='/assets/icons/edit.png'

@@ -29,7 +29,7 @@ const ProductCard = ({ post }: PostCardProps) => {
           </div>
           <div className='flex items-center gap-2 mt-1'>
             <p className='subtle-semibold lg:small-regular text-light-3'>
-              {multiFormatDateString(post.updatedDate)}
+              Price updated {multiFormatDateString(post.updatedDate)}
             </p>
             {isAuthenticated.isAuthenticated ? (
               <Link to={`/update-post/${post.$id}`}>
