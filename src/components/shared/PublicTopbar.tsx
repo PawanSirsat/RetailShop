@@ -21,7 +21,7 @@ const PublicTopbar = () => {
             alt='logout'
             style={{ width: '25px', height: '25px' }}
           />
-          Balaji Trader
+          Balaji Traders
         </Link>
 
         <div className='flex gap-4 '>
