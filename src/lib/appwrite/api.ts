@@ -312,13 +312,3 @@ export async function getProductById(postId?: string) {
     console.log(error)
   }
 }
-function imageCompression(
-  imageFile: any,
-  options: {
-    maxSizeMB: number
-    maxWidthOrHeight: number
-    useWebWorker: boolean
-  }
-) {
-  throw new Error('Function not implemented.')
-}
