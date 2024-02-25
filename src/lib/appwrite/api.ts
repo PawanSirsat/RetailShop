@@ -21,8 +21,6 @@ export async function createUserAccount(user: INewUser) {
       username: user.username,
     })
 
-    console.log(newUser)
-
     return newUser
   } catch (error) {
     console.log(error)
@@ -37,8 +35,6 @@ export async function saveUserToDB(user: {
   name: string
   username?: string
 }) {
-  console.log(user)
-
   try {
     const newUser = await databases.createDocument(
       appwriteConfig.databaseId,
@@ -46,10 +42,6 @@ export async function saveUserToDB(user: {
       ID.unique(),
       user
     )
-    console.log('Added')
-
-    console.log(newUser)
-
     return newUser
   } catch (error) {
     console.log(error)
@@ -58,9 +50,7 @@ export async function saveUserToDB(user: {
 // ============================== SIGN IN
 export async function signInAccount(user: { email: string; password: string }) {
   try {
-    console.log(user)
     const session = await account.createEmailSession(user.email, user.password)
-    console.log(session)
     return session
   } catch (error) {
     console.log(error)
@@ -81,7 +71,6 @@ export async function getAccount() {
 export async function getCurrentUser() {
   try {
     const currentAccount = await getAccount()
-    console.log(currentAccount)
 
     if (!currentAccount) throw Error
 
@@ -90,8 +79,6 @@ export async function getCurrentUser() {
       appwriteConfig.adminCollectionId,
       [Query.equal('accountId', currentAccount.$id)]
     )
-
-    console.log(currentUser.documents[0])
 
     if (!currentUser) throw Error
 

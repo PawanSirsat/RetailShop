@@ -19,7 +19,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { SigninValidation } from '@/lib/validation'
 import { useSignInAccount } from '@/lib/react-query/queries'
 import { useUserContext } from '@/context/AuthContext'
-
 const SigninForm = () => {
   const { toast } = useToast()
   const navigate = useNavigate()
@@ -46,7 +45,6 @@ const SigninForm = () => {
     const isLoggedIn = await checkAuthUser()
     if (isLoggedIn) {
       form.reset()
-
       navigate('/')
     } else {
       toast({ title: 'Login failed. Please try again.' })
@@ -54,9 +52,17 @@ const SigninForm = () => {
     }
   }
 
+  const handleDemoLogin = () => {
+    const demoCredentials = {
+      email: 'rushi@gmail.com',
+      password: 'rushi@123',
+    }
+    handleSignin(demoCredentials)
+  }
+
   return (
     <Form {...form}>
-      <div className='sm:w-420  items-center flex-center flex-col py-20'>
+      <div className='sm:w-420 items-center flex-center flex-col py-20'>
         <h2 className='h3-bold md:h2-bold pt-5 sm:pt-12'>Admin Dashboard</h2>
         <p className='text-light-3 small-medium md:base-regular mt-2'>
           Login to admin Dashboard
@@ -101,6 +107,14 @@ const SigninForm = () => {
             ) : (
               'Log in'
             )}
+          </Button>
+
+          <Button
+            type='button'
+            className='shad-button_primary2'
+            onClick={handleDemoLogin}
+          >
+            Demo Login
           </Button>
 
           <p className='text-small-regular text-light-2 text-center mt-2'>
