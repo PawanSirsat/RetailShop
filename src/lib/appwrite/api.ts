@@ -159,7 +159,7 @@ export async function uploadFile(file: File) {
     const uploadedFile = await storage.createFile(
       appwriteConfig.storageId,
       ID.unique(),
-      file
+      file!
     )
 
     return uploadedFile
@@ -311,4 +311,14 @@ export async function getProductById(postId?: string) {
   } catch (error) {
     console.log(error)
   }
+}
+function imageCompression(
+  imageFile: any,
+  options: {
+    maxSizeMB: number
+    maxWidthOrHeight: number
+    useWebWorker: boolean
+  }
+) {
+  throw new Error('Function not implemented.')
 }
