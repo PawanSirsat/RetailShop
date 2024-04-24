@@ -17,18 +17,20 @@ export const multiFormatDateString = (timestamp: string = ''): string => {
   const diffInHours: number = diffInMinutes / 60
   const diffInDays: number = diffInHours / 24
 
-  switch (true) {
-    case Math.floor(diffInDays) >= 30:
-      return multiFormatDateString(timestamp)
-    case Math.floor(diffInDays) === 1:
-      return `${Math.floor(diffInDays)} day ago`
-    case Math.floor(diffInDays) > 1 && diffInDays < 30:
-      return `${Math.floor(diffInDays)} days ago`
-    case Math.floor(diffInHours) >= 1:
-      return `${Math.floor(diffInHours)} hours ago`
-    case Math.floor(diffInMinutes) >= 1:
-      return `${Math.floor(diffInMinutes)} minutes ago`
-    default:
-      return 'Just now'
+  if (Math.floor(diffInDays) >= 30) {
+    // More than 30 days ago
+    return `${Math.floor(diffInDays / 30)} months ago`
+  } else if (Math.floor(diffInDays) >= 1) {
+    // More than a day ago
+    return `${Math.floor(diffInDays)} days ago`
+  } else if (Math.floor(diffInHours) >= 1) {
+    // More than an hour ago
+    return `${Math.floor(diffInHours)} hours ago`
+  } else if (Math.floor(diffInMinutes) >= 1) {
+    // More than a minute ago
+    return `${Math.floor(diffInMinutes)} minutes ago`
+  } else {
+    // Less than a minute ago
+    return 'Just now'
   }
 }

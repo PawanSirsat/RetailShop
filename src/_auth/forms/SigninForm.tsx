@@ -39,6 +39,8 @@ const SigninForm = () => {
     console.log(session)
 
     if (!session) {
+      console.log('Login Failed')
+
       toast({ title: 'Login failed. Please try again.' })
       return
     }
