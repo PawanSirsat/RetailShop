@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { FileWithPath, useDropzone } from 'react-dropzone'
+import imageCompression from 'browser-image-compression'
 
 import { convertFileToUrl } from '@/lib/utils'
 
@@ -12,13 +13,49 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const [file, setFile] = useState<File[]>([])
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl)
 
+  const compressImageToTargetSize = async (file: File) => {
+    let compressedFile = file
+    let quality = 1.0
+    const targetSizeKB = 40
+    const tolerance = 5
+    const options = {
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      initialQuality: quality,
+    }
+
+    while (compressedFile.size > (targetSizeKB + tolerance) * 1024) {
+      quality -= 0.1
+      options.initialQuality = quality
+      compressedFile = await imageCompression(file, options)
+      if (quality <= 0.1) break // Avoid infinite loop, break if quality is too low
+    }
+
+    return compressedFile
+  }
+
   const onDrop = useCallback(
-    (acceptedFiles: FileWithPath[]) => {
-      setFile(acceptedFiles)
-      fieldChange(acceptedFiles)
-      setFileUrl(convertFileToUrl(acceptedFiles[0]))
+    async (acceptedFiles: FileWithPath[]) => {
+      const compressedFiles = await Promise.all(
+        acceptedFiles.map(async (file) => {
+          try {
+            const compressedFile = await compressImageToTargetSize(file)
+            return new File([compressedFile], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            })
+          } catch (error) {
+            console.error('Error compressing the file:', error)
+            return file
+          }
+        })
+      )
+
+      setFile(compressedFiles)
+      fieldChange(compressedFiles)
+      setFileUrl(convertFileToUrl(compressedFiles[0]))
     },
-    [file]
+    [fieldChange]
   )
 
   const { getRootProps, getInputProps } = useDropzone({

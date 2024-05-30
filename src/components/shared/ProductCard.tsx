@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { useUserContext } from '@/context/AuthContext'
 import { multiFormatDateString } from '@/lib/utils'
 import { Models } from 'appwrite'
@@ -9,15 +10,25 @@ type PostCardProps = {
 
 const ProductCard = ({ post }: PostCardProps) => {
   const isAuthenticated = useUserContext()
+  const [imageLoadError, setImageLoadError] = useState<boolean>(false)
+
+  const handleImageError = useCallback(() => {
+    setImageLoadError(true)
+  }, [])
+
   return (
     <div className='post-card'>
       <div className='flex items-center gap-3'>
         <img
-          src={post.imageUrl || '/assets/icons/product.png'}
+          src={
+            imageLoadError
+              ? '/assets/icons/default-image.png'
+              : post.imageUrl || '/assets/icons/groc.png'
+          }
           alt='creator'
           className='w-14 h-14 lg:h-14 rounded-full'
+          onError={handleImageError}
         />
-
         <div className='flex flex-col flex-grow'>
           <div className='flex justify-between items-center'>
             <p className='base-medium lg:body-bold text-light-1'>
