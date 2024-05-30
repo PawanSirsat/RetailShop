@@ -20,8 +20,8 @@ import {
 } from '../ui/form'
 import { Input } from '../ui/input'
 import FileUploader from '../shared/FileUploader'
-import { Loader } from 'lucide-react'
 import { toast } from '../ui/use-toast'
+import Loader from '../shared/Loader'
 
 type PostFormProps = {
   post?: Models.Document
@@ -59,7 +59,11 @@ const PostForm = ({ post, action }: PostFormProps) => {
 
       if (!updatedPost) {
         toast({
-          title: `${action} post failed. Please try again.`,
+          title: `${action}  failed. Please try again.`,
+        })
+      } else {
+        toast({
+          title: `Product Updated Successfully`,
         })
       }
       return navigate(`/`)
@@ -74,6 +78,10 @@ const PostForm = ({ post, action }: PostFormProps) => {
       toast({
         title: `${action} product failed. Please try again.`,
       })
+    } else {
+      toast({
+        title: `Product Added Successfully`,
+      })
     }
     navigate('/')
   }
@@ -84,13 +92,13 @@ const PostForm = ({ post, action }: PostFormProps) => {
     try {
       await deletePost({ postId: post.$id, imageId: post.imageId })
       toast({
-        title: 'Product Deleted Successfully.',
+        title: `Product Deleted Successfully.`,
       })
       navigate('/')
     } catch (error) {
       console.error('Error deleting post:', error)
       toast({
-        title: 'Delete post failed. Please try again.',
+        title: `Delete product failed. Please try again.`,
       })
     }
   }

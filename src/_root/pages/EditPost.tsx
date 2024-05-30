@@ -20,12 +20,12 @@ const EditPost = () => {
         <div className='max-w-5xl flex items-center justify-center gap-3'>
           <img
             src='/assets/icons/edit.png'
-            width={36}
-            height={36}
+            width={20}
+            height={20}
             alt='edit'
             className='invert-white'
           />
-          <h2 className='h3-bold md:h2-bold text-left w-full'>Edit Post</h2>
+          <h2 className='h4-bold md:h2-bold text-left w-full'>Edit Product</h2>
         </div>
 
         {isLoading ? <Loader /> : <PostForm action='Update' post={post} />}

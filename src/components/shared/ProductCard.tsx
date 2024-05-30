@@ -34,7 +34,7 @@ const ProductCard = ({ post }: PostCardProps) => {
             <p className='base-medium lg:body-bold text-light-1'>
               {post.productName}
             </p>
-            <p className='subtle-semibold lg:small-regular'>
+            <p className='subtle-semibold lg:small-large'>
               ₹{post.productPrice}
             </p>
           </div>
