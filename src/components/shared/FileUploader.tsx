@@ -10,13 +10,12 @@ type FileUploaderProps = {
 }
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
-  const [file, setFile] = useState<File[]>([])
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl)
 
   const compressImageToTargetSize = async (file: File) => {
     let compressedFile = file
     let quality = 1.0
-    const targetSizeKB = 40
+    const targetSizeKB = 15
     const tolerance = 5
     const options = {
       maxWidthOrHeight: 1920,
@@ -50,8 +49,6 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
           }
         })
       )
-
-      setFile(compressedFiles)
       fieldChange(compressedFiles)
       setFileUrl(convertFileToUrl(compressedFiles[0]))
     },

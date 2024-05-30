@@ -4,8 +4,11 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ProductValidation } from '@/lib/validation'
-import { useToast } from '@/components/ui/use-toast'
-import { useCreatePost, useUpdatePost } from '@/lib/react-query/queries'
+import {
+  useCreatePost,
+  useUpdatePost,
+  useDeletePost,
+} from '@/lib/react-query/queries'
 import { Button } from '../ui/button'
 import {
   FormField,
@@ -18,6 +21,7 @@ import {
 import { Input } from '../ui/input'
 import FileUploader from '../shared/FileUploader'
 import { Loader } from 'lucide-react'
+import { toast } from '../ui/use-toast'
 
 type PostFormProps = {
   post?: Models.Document
@@ -26,7 +30,6 @@ type PostFormProps = {
 
 const PostForm = ({ post, action }: PostFormProps) => {
   const navigate = useNavigate()
-  const { toast } = useToast()
   const form = useForm<z.infer<typeof ProductValidation>>({
     resolver: zodResolver(ProductValidation),
     defaultValues: {
@@ -41,8 +44,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
     useCreatePost()
   const { mutateAsync: updatePost, isLoading: isLoadingUpdate } =
     useUpdatePost()
+  const { mutateAsync: deletePost } = useDeletePost()
 
-  // Handler
+  // Handlers
   const onSubmit = async (value: z.infer<typeof ProductValidation>) => {
     // ACTION = UPDATE
     if (post && action === 'Update') {
@@ -74,12 +78,30 @@ const PostForm = ({ post, action }: PostFormProps) => {
     navigate('/')
   }
 
+  const onDelete = async () => {
+    if (!post) return
+
+    try {
+      await deletePost({ postId: post.$id, imageId: post.imageId })
+      toast({
+        title: 'Product Deleted Successfully.',
+      })
+      navigate('/')
+    } catch (error) {
+      console.error('Error deleting post:', error)
+      toast({
+        title: 'Delete post failed. Please try again.',
+      })
+    }
+  }
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-9 w-full  max-w-5xl mb-5'
+        className='flex flex-col gap-9 w-full max-w-5xl mb-5'
       >
+        {/* Product Name */}
         <FormField
           control={form.control}
           name='productName'
@@ -98,6 +120,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           )}
         />
 
+        {/* Product Price */}
         <FormField
           control={form.control}
           name='productPrice'
@@ -116,6 +139,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           )}
         />
 
+        {/* File Uploader */}
         <FormField
           control={form.control}
           name='file'
@@ -133,6 +157,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           )}
         />
 
+        {/* Submit Button */}
         <div className='flex gap-4 items-center justify-end'>
           <Button
             type='button'
@@ -141,6 +166,21 @@ const PostForm = ({ post, action }: PostFormProps) => {
           >
             Cancel
           </Button>
+          {action === 'Update' && (
+            <div className='flex justify-end'>
+              <Button
+                type='button'
+                style={{
+                  backgroundColor: '#EF4444',
+                  transition: 'background-color 0.3s',
+                }}
+                className='text-white px-4 hover:text-blue py-2 rounded flex items-center gap-2 hover:bg-red-500'
+                onClick={onDelete}
+              >
+                Delete
+              </Button>
+            </div>
+          )}
           <Button
             type='submit'
             className='shad-button_primary whitespace-nowrap'
